@@ -22,9 +22,14 @@ fi
 # 设置文件权限
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
-# 为安装目录设置写入权限
+# 为安装目录和console目录设置完全写入权限
 chmod -R 777 /var/www/html/install/
 chmod -R 777 /var/www/html/console/
+# 确保所有文件和子目录都有正确权限
+find /var/www/html/console -type d -exec chmod 777 {} \;
+find /var/www/html/console -type f -exec chmod 666 {} \;
+find /var/www/html/install -type d -exec chmod 777 {} \;
+find /var/www/html/install -type f -exec chmod 666 {} \;
 
 # 启动Apache
 exec apache2-foreground
