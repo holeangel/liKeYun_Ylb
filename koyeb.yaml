@@ -13,16 +13,16 @@ services:
     env:
       - name: APACHE_DOCUMENT_ROOT
         value: /var/www/html
-      - name: DB_HOST
-        value: ${RAILWAY_DB_HOST}
-      - name: DB_PORT
-        value: ${RAILWAY_DB_PORT}
-      - name: DB_NAME
-        value: ${RAILWAY_DB_NAME}
-      - name: DB_USER
-        value: ${RAILWAY_DB_USER}
-      - name: DB_PASS
-        value: ${RAILWAY_DB_PASSWORD}
+      - name: RAILWAY_DB_HOST
+        secret: true
+      - name: RAILWAY_DB_PORT
+        secret: true
+      - name: RAILWAY_DB_NAME
+        secret: true
+      - name: RAILWAY_DB_USER
+        secret: true
+      - name: RAILWAY_DB_PASSWORD
+        secret: true
     scaling:
       min: 1
       max: 1
