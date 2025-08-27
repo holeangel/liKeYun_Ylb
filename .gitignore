@@ -8,9 +8,10 @@ install/install.lock
 # 排除数据库配置文件
 console/Db.php
 
-# 排除上传的文件和缓存
+# 排除上传的文件和缓存（但允许空目录结构）
 console/upload/*
-!console/upload/.gitkeep
+!console/upload/
+!console/upload/upload
 static/upload/*
 !static/upload/.gitkeep
 
