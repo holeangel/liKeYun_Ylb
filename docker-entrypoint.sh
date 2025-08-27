@@ -30,6 +30,9 @@ chmod -R 777 /var/www/html/s/
 chmod -R 777 /var/www/html/common/
 chmod -R 777 /var/www/html/static/
 
+# 特别为安装检测需要的目录设置权限
+chmod -R 777 /var/www/html/console/upload/
+
 # 递归设置所有子目录和文件的权限
 find /var/www/html -name "*.php" -exec chmod 666 {} \;
 find /var/www/html -name "*.html" -exec chmod 666 {} \;
