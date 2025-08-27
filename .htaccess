@@ -1,0 +1,3 @@
+RewriteEngine On  
+RewriteRule ^([a-zA-Z0-9]+)$ /s/dwz.php?key=$1 [L]  
+RewriteRule ^s/([a-zA-Z0-9]+)$ /s/index.php?key=$1 [L]

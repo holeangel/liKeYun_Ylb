@@ -1,0 +1,38 @@
+# 排除README.md和LICENSE-MIT文件
+README.md
+LICENSE-MIT
+
+# 排除安装锁文件
+install/install.lock
+
+# 排除数据库配置文件
+console/Db.php
+
+# 排除上传的文件和缓存
+console/upload/*
+!console/upload/.gitkeep
+static/upload/*
+!static/upload/.gitkeep
+
+# 排除日志文件
+*.log
+
+# 排除环境配置文件
+.env
+.env.local
+.env.production
+
+# 排除IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 排除操作系统文件
+.DS_Store
+Thumbs.db
+
+# 排除Composer文件（如果存在）
+vendor/
+composer.lock
