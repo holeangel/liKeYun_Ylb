@@ -1,5 +1,5 @@
 # 使用官方的PHP Apache镜像
-FROM php:8.2-apache
+FROM php:7.4-apache
 
 # 设置工作目录
 WORKDIR /var/www/html

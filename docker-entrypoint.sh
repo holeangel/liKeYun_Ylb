@@ -22,6 +22,9 @@ fi
 # 设置文件权限
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
+# 为安装目录设置写入权限
+chmod -R 777 /var/www/html/install/
+chmod -R 777 /var/www/html/console/
 
 # 启动Apache
 exec apache2-foreground
