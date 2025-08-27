@@ -3,20 +3,22 @@
 // 从环境变量读取数据库配置并生成Db.php文件
 
 // 检查是否所有必要的环境变量都存在
-$requiredEnvVars = ['DB_HOST', 'DB_PORT', 'DB_NAME', 'DB_USER', 'DB_PASS'];
-foreach ($requiredEnvVars as $var) {
-    if (!getenv($var)) {
-        error_log("Missing required environment variable: $var");
-        exit(1);
-    }
-}
+// 支持两种环境变量命名方式：RAILWAY_ 前缀和直接DB_前缀
+$db_host = getenv('RAILWAY_DB_HOST') ?: getenv('DB_HOST');
+$db_port = getenv('RAILWAY_DB_PORT') ?: getenv('DB_PORT') ?: '3306';
+$db_name = getenv('RAILWAY_DB_NAME') ?: getenv('DB_NAME');
+$db_user = getenv('RAILWAY_DB_USER') ?: getenv('DB_USER');
+$db_pass = getenv('RAILWAY_DB_PASSWORD') ?: getenv('DB_PASS');
 
-// 获取环境变量
-$db_host = getenv('DB_HOST');
-$db_port = getenv('DB_PORT') ?: '3306';
-$db_name = getenv('DB_NAME');
-$db_user = getenv('DB_USER');
-$db_pass = getenv('DB_PASS');
+// 验证必要的环境变量
+if (!$db_host || !$db_name || !$db_user || !$db_pass) {
+    error_log("Missing required database environment variables");
+    error_log("DB_HOST: " . ($db_host ? "set" : "missing"));
+    error_log("DB_NAME: " . ($db_name ? "set" : "missing"));
+    error_log("DB_USER: " . ($db_user ? "set" : "missing"));
+    error_log("DB_PASS: " . ($db_pass ? "set" : "missing"));
+    exit(1);
+}
 
 // 数据库配置数组
 $Db_config = [
