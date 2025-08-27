@@ -21,13 +21,13 @@ WORKDIR /var/www/html
 # 复制项目文件
 COPY . /var/www/html/
 
-# 设置权限
+# 设置权限 - 使用条件检查避免不存在的目录
 RUN chown -R www-data:www-data /var/www/html \
     && find /var/www/html -type d -exec chmod 755 {} \; \
     && find /var/www/html -type f -exec chmod 644 {} \; \
     && chmod -R 777 /var/www/html/install/ \
     && chmod -R 777 /var/www/html/console/ \
-    && chmod 777 /var/www/html/console/upload/
+    && ([ -d "/var/www/html/console/upload" ] && chmod -R 777 /var/www/html/console/upload/ || echo "upload directory not found, skipping")
 
 # 暴露端口
 EXPOSE 80
