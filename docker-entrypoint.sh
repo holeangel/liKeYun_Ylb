@@ -9,7 +9,7 @@ if [ -f /var/www/html/generate-db-config.php ]; then
     php /var/www/html/generate-db-config.php
 fi
 
-# 设置文件权限（简化版本）
+# 设置文件权限
 chown -R www-data:www-data /var/www/html
 find /var/www/html -type d -exec chmod 755 {} \;
 find /var/www/html -type f -exec chmod 644 {} \;
@@ -17,12 +17,13 @@ find /var/www/html -type f -exec chmod 644 {} \;
 # 为需要写入的目录设置特殊权限
 chmod -R 777 /var/www/html/install/
 chmod -R 777 /var/www/html/console/
-chmod -R 777 /var/www/html/console/upload/
 
-# 确保安装检测脚本需要的具体文件路径有写入权限
-mkdir -p /var/www/html/console/upload
-chmod 777 /var/www/html/console/
-chmod 777 /var/www/html/console/upload/
+# 确保upload目录存在并设置权限
+if [ -d "/var/www/html/console/upload" ]; then
+    chmod -R 777 /var/www/html/console/upload/
+else
+    echo "Warning: /var/www/html/console/upload/ directory does not exist"
+fi
 
 # 启动Apache
 exec apache2-foreground
