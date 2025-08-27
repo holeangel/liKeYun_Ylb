@@ -19,5 +19,10 @@ chmod -R 777 /var/www/html/install/
 chmod -R 777 /var/www/html/console/
 chmod -R 777 /var/www/html/console/upload/
 
+# 确保安装检测脚本需要的具体文件路径有写入权限
+mkdir -p /var/www/html/console/upload
+chmod 777 /var/www/html/console/
+chmod 777 /var/www/html/console/upload/
+
 # 启动Apache
 exec apache2-foreground
