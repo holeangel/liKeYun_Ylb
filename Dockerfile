@@ -1,39 +1,33 @@
-# 使用官方的PHP Apache镜像
 FROM php:7.4-apache
+
+# 安装PHP扩展和必要工具
+RUN apt-get update && apt-get install -y \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    git \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd mysqli pdo_mysql zip
+
+# 启用Apache模块
+RUN a2enmod rewrite
 
 # 设置工作目录
 WORKDIR /var/www/html
 
-# 安装必要的扩展
-RUN apt-get update && apt-get install -y \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libzip-dev \
-    zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd pdo pdo_mysql mysqli zip
+# 复制项目文件
+COPY . /var/www/html/
 
-# 启用Apache重写模块
-RUN a2enmod rewrite
-
-# 复制项目文件到容器中
-COPY . .
-
-# 设置Apache文档根目录权限
+# 设置权限
 RUN chown -R www-data:www-data /var/www/html \
-    && find /var/www/html -type d -exec chmod 755 {} \; \
-    && find /var/www/html -type f -exec chmod 644 {} \; \
     && chmod -R 777 /var/www/html/install/ \
     && chmod -R 777 /var/www/html/console/
-
-# 添加启动脚本
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # 暴露端口
 EXPOSE 80
 
-# 使用自定义启动脚本
-ENTRYPOINT ["docker-entrypoint.sh"]
+# 启动Apache
+CMD ["apache2-foreground"]

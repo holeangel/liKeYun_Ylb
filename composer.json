@@ -1,0 +1,36 @@
+{
+    "name": "likeyun/ylb",
+    "description": "私域引流宝 - 私域流量获取与监控工具",
+    "type": "project",
+    "require": {
+        "php": "^7.4|^8.0",
+        "ext-mysqli": "*",
+        "ext-gd": "*",
+        "ext-zip": "*"
+    },
+    "require-dev": {
+        "heroku/heroku-buildpack-php": "*"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "chmod -R 755 ./",
+            "chmod 755 ./install/install.php"
+        ]
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "autoload": {
+        "classmap": [
+            "console/"
+        ]
+    },
+    "authors": [
+        {
+            "name": "likeyun",
+            "email": "tanking@qq.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
