@@ -34,10 +34,12 @@ RUN chown -R www-data:www-data /var/www/html \
     && mkdir -p /var/www/html/console/upload/ \
     && mkdir -p /var/www/html/static/upload/ \
     && chown -R www-data:www-data /var/www/html/console/upload/ \
-    && chown -R www-data:www-data /var/www/html/static/upload/
+    && chown -R www-data:www-data /var/www/html/static/upload/ \
+    && chmod +x /var/www/html/docker-entrypoint.sh
 
 # 暴露端口
 EXPOSE 80
 
-# 启动Apache
+# 使用自定义入口点脚本
+ENTRYPOINT ["/var/www/html/docker-entrypoint.sh"]
 CMD ["apache2-foreground"]
