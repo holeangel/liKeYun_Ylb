@@ -23,7 +23,9 @@ COPY . .
 
 # 设置Apache文档根目录权限
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+    && chmod -R 755 /var/www/html \
+    && chmod -R 777 /var/www/html/install/ \
+    && chmod -R 777 /var/www/html/console/
 
 # 添加启动脚本
 COPY docker-entrypoint.sh /usr/local/bin/
