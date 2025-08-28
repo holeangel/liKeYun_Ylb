@@ -1,3 +1,37 @@
-RewriteEngine On  
-RewriteRule ^([a-zA-Z0-9]+)$ /s/dwz.php?key=$1 [L]  
-RewriteRule ^s/([a-zA-Z0-9]+)$ /s/index.php?key=$1 [L]
+RewriteEngine On
+
+# 设置基础路径（如果网站在子目录中，请取消注释并修改）
+# RewriteBase /
+
+# 允许直接访问存在的文件和目录
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# 短链接重写规则
+RewriteRule ^s/([a-zA-Z0-9]+)$ s/index.php?key=$1 [L,QSA]
+
+# 其他重写规则
+RewriteRule ^qun/([0-9]+)$ common/qun/redirect/?qid=$1 [L,QSA]
+RewriteRule ^kf/([0-9]+)$ common/kf/redirect/?kid=$1 [L,QSA]
+RewriteRule ^channel/([0-9]+)$ common/channel/redirect/?cid=$1 [L,QSA]
+RewriteRule ^zjy/([0-9]+)$ common/zjy/redirect/?zid=$1 [L,QSA]
+RewriteRule ^multiSPA/([0-9]+)$ common/multiSPA/redirect/?mid=$1 [L,QSA]
+
+# 防止直接访问PHP文件
+<FilesMatch "^(Db)\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# PHP设置
+<IfModule mod_php7.c>
+    php_flag output_buffering on
+</IfModule>
+
+# 设置默认字符集
+AddDefaultCharset UTF-8
+
+# 启用CORS
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>

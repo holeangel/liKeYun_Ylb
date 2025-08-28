@@ -1,3 +1,8 @@
+<?php
+    
+    // 页面编码
+    header("Content-type:text/html;charset=utf-8");
+?>
 <html>
     <head>
         <meta name="wechat-enable-text-zoom-em" content="true">
@@ -16,9 +21,6 @@
     <body>
         
     <?php
-    
-    // 页面编码
-    header("Content-type:text/html;charset=utf-8");
     
     // 获取参数
     $key = trim($_GET['key']);
