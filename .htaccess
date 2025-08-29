@@ -10,6 +10,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # 短链接重写规则
 RewriteRule ^s/([a-zA-Z0-9]+)$ s/index.php?key=$1 [L,QSA]
 
+# 微信QQ跳转插件重写规则
+RewriteRule ^jump/([a-z0-9]{8})$ s/jumpRouter.php?key=$1 [L,QSA]
+
 # 其他重写规则
 RewriteRule ^qun/([0-9]+)$ common/qun/redirect/?qid=$1 [L,QSA]
 RewriteRule ^kf/([0-9]+)$ common/kf/redirect/?kid=$1 [L,QSA]

@@ -5,16 +5,20 @@
  */
 
 // 尝试包含主项目的数据库配置
-$main_config_path = dirname(dirname(dirname(dirname(dirname(__DIR__))))) . '/config/db.php';
+$main_config_path = dirname(dirname(dirname(dirname(dirname(__DIR__))))) . '/console/Db.php';
 
 if (file_exists($main_config_path)) {
-    // 如果主项目配置文件存在，使用主项目的数据库配置
+    // 包含主项目的数据库配置文件
     include_once $main_config_path;
     
-    // 假设主项目配置中有 $db_config 或类似变量
-    if (!isset($db_config) && isset($config['db'])) {
-        $db_config = $config['db'];
-    }
+    // 使用主项目的数据库配置
+    $db_config = [
+        'host' => $config['db_host'] ?? 'localhost',
+        'dbname' => $config['db_name'] ?? 'ylb_db',
+        'username' => $config['db_user'] ?? 'root',
+        'password' => $config['db_pass'] ?? '',
+        'port' => $config['db_port'] ?? '3306'
+    ];
 } else {
     // 如果找不到主项目配置，使用默认配置或环境变量
     $db_config = [
