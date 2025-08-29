@@ -22,10 +22,10 @@ if (file_exists($main_config_path)) {
 } else {
     // 如果找不到主项目配置，使用默认配置或环境变量
     $db_config = [
-        'host' => getenv('DB_HOST') ?: 'localhost',
-        'dbname' => getenv('DB_NAME') ?: 'ylb_db',
-        'username' => getenv('DB_USER') ?: 'root',
-        'password' => getenv('DB_PASSWORD') ?: '',
-        'port' => getenv('DB_PORT') ?: '3306'
+        'host' => getenv('RAILWAY_DB_HOST') ?: 'localhost',
+        'dbname' => getenv('RAILWAY_DB_NAME') ?: 'ylb_db',
+        'username' => getenv('RAILWAY_DB_USER') ?: 'root',
+        'password' => getenv('RAILWAY_DB_PASSWORD') ?: '',
+        'port' => getenv('RAILWAY_DB_PORT') ?: '3306'
     ];
 }
