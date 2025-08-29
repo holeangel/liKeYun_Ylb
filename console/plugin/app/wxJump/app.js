@@ -3,29 +3,64 @@ $(document).ready(function() {
     // 初始化
     loadLinksList();
     
+    // 根据API类型显示/隐藏相关字段
+    $('#wechatApiType').on('change', function() {
+        const apiType = $(this).val();
+        if (apiType === 'official') {
+            $('#secretGroup').show();
+            $('#queryGroup').show();
+        } else {
+            $('#secretGroup').hide();
+            $('#queryGroup').hide();
+        }
+    });
+    
+    // 初始触发一次，设置初始状态
+    $('#wechatApiType').trigger('change');
+    
     // 微信跳转表单提交
     $('#wechatForm').on('submit', function(e) {
         e.preventDefault();
         
+        const apiType = $('#wechatApiType').val();
         const appid = $('#appid').val();
+        const secret = $('#secret').val();
         const path = $('#path').val();
+        const query = $('#query').val();
         const expire = $('#wechatExpire').val();
+        const useOfficialApi = apiType === 'official';
         
         if (!appid || !path) {
             alert('请填写完整信息');
             return;
         }
         
+        if (useOfficialApi && !secret) {
+            alert('使用官方API方式需要提供AppSecret');
+            return;
+        }
+        
+        const requestData = {
+            action: 'create',
+            type: 'wechat',
+            appid: appid,
+            path: path,
+            expire: expire,
+            use_official_api: useOfficialApi
+        };
+        
+        // 如果使用官方API，添加secret和query参数
+        if (useOfficialApi) {
+            requestData.secret = secret;
+            if (query) {
+                requestData.query = query;
+            }
+        }
+        
         $.ajax({
             url: 'server/api.php',
             type: 'POST',
-            data: {
-                action: 'create',
-                type: 'wechat',
-                appid: appid,
-                path: path,
-                expire: expire
-            },
+            data: requestData,
             success: function(response) {
                 try {
                     const data = JSON.parse(response);

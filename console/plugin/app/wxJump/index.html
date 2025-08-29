@@ -34,12 +34,29 @@
                             <div class="tab-pane fade show active" id="wechat" role="tabpanel" aria-labelledby="wechat-tab">
                                 <form id="wechatForm">
                                     <div class="form-group">
+                                        <label for="wechatApiType">API类型</label>
+                                        <select class="form-control" id="wechatApiType">
+                                            <option value="official" selected>官方API方式（推荐，更安全）</option>
+                                            <option value="scheme">URL Scheme方式（简单，无需AppSecret）</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="appid">AppID</label>
                                         <input type="text" class="form-control" id="appid" required>
+                                    </div>
+                                    <div class="form-group" id="secretGroup">
+                                        <label for="secret">AppSecret</label>
+                                        <input type="text" class="form-control" id="secret" required>
+                                        <small class="form-text text-muted">使用官方API方式需要提供AppSecret</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="path">Path</label>
                                         <input type="text" class="form-control" id="path" placeholder="pages/index" required>
+                                    </div>
+                                    <div class="form-group" id="queryGroup">
+                                        <label for="query">Query参数</label>
+                                        <input type="text" class="form-control" id="query" placeholder="key1=value1&key2=value2">
+                                        <small class="form-text text-muted">可选，格式为：key1=value1&key2=value2</small>
                                     </div>
                                     <div class="form-group">
                                         <label for="wechatExpire">有效期</label>
