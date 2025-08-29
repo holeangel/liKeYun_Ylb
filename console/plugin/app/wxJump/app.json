@@ -3,5 +3,7 @@
     "entry": "wxJump",
     "version": "1.0.0",
     "install": 1,
-    "allow": true
+    "allow": true,
+    "logo": "img/logo.png",
+    "desc": "一键跳转到微信或QQ聊天窗口"
 }
