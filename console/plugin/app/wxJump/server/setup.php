@@ -22,7 +22,7 @@ try {
         $db_config['password'],
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
     );
-    
+
     // 创建跳转链接表
     $sql = "CREATE TABLE IF NOT EXISTS `ylb_jump_links` (
         `id` INT AUTO_INCREMENT,
@@ -34,18 +34,18 @@ try {
         `create_time` DATETIME DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-    
+
     $pdo->exec($sql);
-    
+
     // 更新安装状态
     $appConfig['install'] = 2;
     file_put_contents($appJsonPath, json_encode($appConfig, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
-    
+
     echo json_encode([
         'code' => 200,
         'msg' => '插件安装成功'
     ]);
-    
+
 } catch (PDOException $e) {
     echo json_encode([
         'code' => 500,
