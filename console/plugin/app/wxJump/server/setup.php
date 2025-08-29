@@ -42,13 +42,13 @@ try {
     file_put_contents($appJsonPath, json_encode($appConfig, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
     
     echo json_encode([
-        'success' => true,
-        'message' => '插件安装成功'
+        'code' => 200,
+        'msg' => '插件安装成功'
     ]);
     
 } catch (PDOException $e) {
     echo json_encode([
-        'success' => false,
-        'message' => '数据库错误: ' . $e->getMessage()
+        'code' => 500,
+        'msg' => '数据库错误: ' . $e->getMessage()
     ]);
 }
