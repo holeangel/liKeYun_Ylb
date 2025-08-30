@@ -4,6 +4,12 @@
  * 集成到现有项目中
  */
 
+// 调试：输出当前环境变量
+error_log("RAILWAY_DB_HOST: " . getenv('RAILWAY_DB_HOST'));
+error_log("RAILWAY_DB_NAME: " . getenv('RAILWAY_DB_NAME'));
+error_log("RAILWAY_DB_USER: " . getenv('RAILWAY_DB_USER'));
+error_log("RAILWAY_DB_PORT: " . getenv('RAILWAY_DB_PORT'));
+
 // 尝试包含主项目的数据库配置
 $main_config_path = dirname(dirname(dirname(dirname(dirname(__DIR__))))) . '/console/Db.php';
 
@@ -28,4 +34,12 @@ if (file_exists($main_config_path)) {
         'password' => getenv('RAILWAY_DB_PASSWORD') ?: '',
         'port' => getenv('RAILWAY_DB_PORT') ?: '3306'
     ];
+    
+    // 调试：输出最终使用的数据库配置
+    error_log("最终数据库配置: " . json_encode([
+        'host' => $db_config['host'],
+        'dbname' => $db_config['dbname'],
+        'username' => $db_config['username'],
+        'port' => $db_config['port']
+    ]));
 }
