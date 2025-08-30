@@ -27,13 +27,19 @@ if (file_exists($main_config_path)) {
     ];
 } else {
     // 如果找不到主项目配置，使用默认配置或环境变量
+    // 直接使用Railway数据库配置
     $db_config = [
-        'host' => getenv('RAILWAY_DB_HOST') ?: 'localhost',
-        'dbname' => getenv('RAILWAY_DB_NAME') ?: 'ylb_db',
-        'username' => getenv('RAILWAY_DB_USER') ?: 'root',
-        'password' => getenv('RAILWAY_DB_PASSWORD') ?: '',
-        'port' => getenv('RAILWAY_DB_PORT') ?: '3306'
+        'host' => 'yamabiko.proxy.rlwy.net',
+        'dbname' => 'railway',
+        'username' => 'root',
+        'password' => 'beAvsMJdVOJoZKTtcvjhPACSXTmPqePr',
+        'port' => '11142'
     ];
+    
+    error_log("使用Railway数据库配置: " . json_encode([
+        'host' => $db_config['host'],
+        'port' => $db_config['port']
+    ]));
     
     // 调试：输出最终使用的数据库配置
     error_log("最终数据库配置: " . json_encode([
