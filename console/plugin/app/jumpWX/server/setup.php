@@ -33,8 +33,20 @@
         $data = json_decode($jsonData, true);
         
         // 连接数据库
-        include '../../../../Db.php';
-        $conn = new mysqli($config['db_host'], $config['db_user'], $config['db_pass'], $config['db_name']);
+        require_once __DIR__ . '/db_config.php';
+        $conn = new mysqli(
+            $db_config['host'],
+            $db_config['username'],
+            $db_config['password'],
+            $db_config['dbname'],
+            $db_config['port']
+        );
+        
+        // 调试日志
+        error_log("尝试连接数据库: " . json_encode([
+            'host' => $db_config['host'],
+            'port' => $db_config['port']
+        ]));
         
         // 验证当前登录用户是否为管理员
         $check_admin = "SELECT user_admin FROM huoma_user WHERE user_name = '$LoginUser'";
